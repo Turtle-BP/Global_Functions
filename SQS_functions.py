@@ -2,14 +2,15 @@
 import boto3
 import json 
 
-#Criando as credenciais da AWS
-AWS_ACCESS_KEY_ID = 'AKIAXJ44CIZUYE4UTUH4'
-AWS_SECRET_ACCESS_KEY = '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'
+import os
+
+aws_access_key = os.environ.get('AWS_ACCESS_KEY_ID')
+aws_secret_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
 #Função para enviar mensagem para a fila 
 def send_sqs_message(sqs_queue_url, marca, produto, url):
     # Create SQS client
-    sqs_client = boto3.client('sqs', region_name='sa-east-1', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+    sqs_client = boto3.client('sqs', region_name='sa-east-1', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key)
 
     #Criand a mensagem em formato de json 
     message_data = {
@@ -29,5 +30,4 @@ def send_sqs_message(sqs_queue_url, marca, produto, url):
 
     return send_msg_response
 
-
-#Função para receber mensagem da fila
+send_sqs_message('https://sqs.sa-east-1.amazonaws.com/502301607529/FASTSHOP-Creation_Search_Urls', 'GoPro','hero','teste.com')
