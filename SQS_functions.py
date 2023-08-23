@@ -28,6 +28,6 @@ def send_sqs_message(sqs_queue_url, marca, produto, url):
         MessageBody=message_data
     )
 
-    return send_msg_response
+    print("Mensagem enviada com sucesso")
 
-send_sqs_message('https://sqs.sa-east-1.amazonaws.com/502301607529/FASTSHOP-Creation_Search_Urls', 'GoPro','hero','teste.com')
+    return send_msg_response
