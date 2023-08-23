@@ -4,11 +4,8 @@ import json
 
 import os
 
-aws_access_key = os.environ.get('AWS_ACCESS_KEY_ID')
-aws_secret_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
-
 #Função para enviar mensagem para a fila 
-def send_sqs_message(sqs_queue_url, marca, produto, url):
+def send_sqs_message(sqs_queue_url, marca, produto, url, aws_access_key, aws_secret_key):
     # Create SQS client
     sqs_client = boto3.client('sqs', region_name='sa-east-1', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key)
 
