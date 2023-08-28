@@ -5,9 +5,9 @@ import json
 import os
 
 #Função para enviar mensagem para a fila 
-def send_sqs_message(sqs_queue_url, marca, produto, url, aws_access_key, aws_secret_key):
+def send_sqs_message(sqs_queue_url, marca, produto, url):
     # Create SQS client
-    sqs_client = boto3.client('sqs', region_name='sa-east-1', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key)
+    sqs_client = boto3.client('sqs', region_name='sa-east-1')
 
     #Criand a mensagem em formato de json 
     message_data = {
