@@ -30,9 +30,9 @@ def send_sqs_message(sqs_queue_url, marca, produto, url):
     return send_msg_response
 
 
-def get_sqs_message(queue_url, aws_access_key, aws_secret_key):
+def get_sqs_message(queue_url):
     # Create SQS client
-    sqs_client = boto3.client('sqs', region_name='sa-east-1', aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key)
+    sqs_client = boto3.client('sqs', region_name='sa-east-1')
 
     #Pegando a resposta
     response = sqs_client.receive_message(
