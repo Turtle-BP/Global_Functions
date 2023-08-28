@@ -2,7 +2,7 @@
 import boto3
 import json 
 
-import os
+import os 
 
 #Função para enviar mensagem para a fila 
 def send_sqs_message(sqs_queue_url, marca, produto, url):
