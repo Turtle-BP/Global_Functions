@@ -32,7 +32,10 @@ def get_all_sqs(sqs_queue_url):
     # Receive message from SQS queue
     response = sqs_client.receive_message(
         QueueUrl=sqs_queue_url,
-        MaxNumberOfMessages=10000
+        AttributeNames=[
+            'All'
+        ],
+        MaxNumberOfMessages=10
     )
 
     messages = response.get('Messages', [])
