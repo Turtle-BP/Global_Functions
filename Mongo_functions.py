@@ -24,7 +24,10 @@ def insert_data(database_name, collection, data_dict, brand):
     collection = db[collection]
 
     #Inserindo o dict
-    result = collection.insert_one(data_dict)
+    try:
+        result = collection.insert_one(data_dict)
+    except:
+        print("É duplicado | erro")
 
     print(result.inserted_id)
 
