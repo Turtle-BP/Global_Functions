@@ -33,3 +33,44 @@ def insert_data(database_name, collection, data_dict, brand):
 
     #Fechando o client
     client.close()
+
+
+#Função para pegar todos os itens dentro de uma collection
+def get_all_items(database, collection_user, brand):
+    #Fazendo as condicionais para a marca
+    if brand == 'GoPro':
+        IP = GoPro_IP
+    elif brand == 'Wacom':
+        IP = Wacom_IP
+
+    #conectando ao mongo    
+    client = pymongo.MongoClient(f"mongodb://mongodbadmin:admin@{IP}:27017/?authMechanism=DEFAULT")
+    
+    #Acessando o database
+    db = client[database]
+
+    #Acessando a collection
+    collection = db[collection_user]
+
+    #Pegando todos os itens
+    all_items = collection.find({})
+
+    #Passando para uma lista
+    items = list(all_items)
+
+    #Fechando o client
+    client.close()
+
+    #Retornando a lista de itens
+    return items
+
+
+
+
+
+
+
+
+
+
+

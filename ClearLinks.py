@@ -60,10 +60,17 @@ def Cleaning_Links(urls,title,brand,marketplace):
     SimpleDataframe['TITLE'] = title
     SimpleDataframe['TITLE'] = SimpleDataframe['TITLE'].str.lower().str.strip()
 
-    for words in WordsTable['WORDS']: 
-        SimpleDataframe = SimpleDataframe[SimpleDataframe['TITLE'].str.contains(words) == False]
+    # Inicialize os DataFrames fora do loop
+    Dataframe_Corretos = pd.DataFrame()
+    Dataframe_Errados = pd.DataFrame()
+
+    for ids in WordsTable['WORDS']:
+        # Atualize os DataFrames cumulativamente
+        Dataframe_Corretos = Dataframe_Corretos.append(SimpleDataframe[SimpleDataframe['TITLE'].str.contains(ids) == False])
+        Dataframe_Errados = Dataframe_Errados.append(SimpleDataframe[SimpleDataframe['TITLE'].str.contains(ids) == True])
 
     return SimpleDataframe
+
 
 
 

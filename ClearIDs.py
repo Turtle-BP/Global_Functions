@@ -42,9 +42,14 @@ def Cleaning_IDs(Dataframe,brand,marketplace):
     # Criando o dataframe com os ids 
     Dataframe['ID'] = Dataframe['ID'].str.lower().str.strip()
 
-    for ids in IDsTable['ID']: 
-        Dataframe = Dataframe[Dataframe['ID'].str.contains(ids) == False]
+    # Inicialize os DataFrames fora do loop
+    Dataframe_Corretos = pd.DataFrame()
+    Dataframe_Errados = pd.DataFrame()
 
-    return Dataframe
+    for ids in IDsTable['ID']:
+        # Atualize os DataFrames cumulativamente
+        Dataframe_Corretos = Dataframe_Corretos.append(Dataframe[Dataframe['ID'].str.contains(ids) == False])
+        Dataframe_Errados = Dataframe_Errados.append(Dataframe[Dataframe['ID'].str.contains(ids) == True])
 
 
+    return Dataframe_Corretos, Dataframe_Errados
