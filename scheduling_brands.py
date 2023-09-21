@@ -24,12 +24,15 @@ def get_day_period(fulldate=False):
     #Verificando a hora 
     Hour = data_atual.hour
 
-    if Hour > 22:
-        Period = "Night"
-    elif Hour > 11: 
-        Period = "Afternoon"
-    elif Hour > 4:
+    # Morning: entre 5h da manhã e 11h da manhã 
+    if 5 <= Hour < 11:
         Period = "Morning"
+    # Afternoon: entre 11h da manhã e 22h da noite
+    elif 11 <= Hour < 22:
+        Period = "Afternoon"
+    # Night: entre 22h da noite e da 5h manhã
+    else:
+        Period = "Night"
 
     #Checando se o strdate foi preenchido, se for então passa o dia no formato YY-MM-DD
     if fulldate == True:
