@@ -32,11 +32,9 @@ def insert_data(database_name, collection, data_dict, brand):
     except:
         print("É duplicado | erro")
 
-    print(result.inserted_id)
-
     #Fechando o client
     client.close()
-
+ 
 
 #Função para pegar todos os itens dentro de uma collection
 def get_all_items(database, collection_user, brand):
