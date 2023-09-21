@@ -53,8 +53,8 @@ def Cleaning_Links_API(Dataframe,brand,marketplace):
         condition = Dataframe['TITLE'].str.contains(word)
         
         # Atualizar os DataFrames cumulativamente
-        Dataframe_Corretos = pd.concat([Dataframe_Corretos, Dataframe[~condition]])
-        Dataframe_Errados = pd.concat([Dataframe_Errados, Dataframe[condition]])
+        Dataframe_Corretos_final = pd.concat([Dataframe_Corretos, Dataframe[~condition]])
+        Dataframe_Errados_final = pd.concat([Dataframe_Errados, Dataframe[condition]])
 
         # Caso uma palavra esteja no DataFrame errado então armazenar a palavra com a quantidade de linhas que foram atualizadas cumulativamente
         for i in range(Dataframe[condition].shape[0]):
@@ -63,7 +63,7 @@ def Cleaning_Links_API(Dataframe,brand,marketplace):
 
     Dataframe_Errados['WORDS_FOUND'] = words_found
 
-    return Dataframe_Corretos, Dataframe_Errados
+    return Dataframe_Corretos_final, Dataframe_Errados_final
 
 
 # Função para limpar por título 
