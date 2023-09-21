@@ -42,10 +42,28 @@ def Cleaning_Links_API(Dataframe,brand,marketplace):
     # Criando o dataframe com as urls e os títulos 
     Dataframe['TITLE'] = Dataframe['TITLE'].str.lower().str.strip()
 
-    for words in WordsTable['WORDS']: 
-        Dataframe = Dataframe[Dataframe['TITLE'].str.contains(words) == False]
+    # Inicialize os DataFrames fora do loop
+    Dataframe_Corretos = pd.DataFrame()
+    Dataframe_Errados = pd.DataFrame()
 
-    return Dataframe
+    words_found = []
+
+    for word in WordsTable['WORDS']:
+        # Criar uma série booleana para verificar se a palavra está contida em 'TITLE'
+        condition = Dataframe['TITLE'].str.contains(word)
+        
+        # Atualizar os DataFrames cumulativamente
+        Dataframe_Corretos = pd.concat([Dataframe_Corretos, Dataframe[~condition]])
+        Dataframe_Errados = pd.concat([Dataframe_Errados, Dataframe[condition]])
+
+        # Caso uma palavra esteja no DataFrame errado então armazenar a palavra com a quantidade de linhas que foram atualizadas cumulativamente
+        for i in range(Dataframe[condition].shape[0]):
+            words_found.append(word)
+
+
+    Dataframe_Errados['WORDS_FOUND'] = words_found
+
+    return Dataframe_Corretos, Dataframe_Errados
 
 
 # Função para limpar por título 
@@ -66,10 +84,10 @@ def Cleaning_Links(urls,title,brand,marketplace):
 
     for ids in WordsTable['WORDS']:
         # Atualize os DataFrames cumulativamente
-        Dataframe_Corretos = Dataframe_Corretos.append(SimpleDataframe[SimpleDataframe['TITLE'].str.contains(ids) == False])
-        Dataframe_Errados = Dataframe_Errados.append(SimpleDataframe[SimpleDataframe['TITLE'].str.contains(ids) == True])
+        Dataframe_Corretos = pd.concat([Dataframe_Corretos, SimpleDataframe[SimpleDataframe['ID'].str.contains(ids) == False]])
+        Dataframe_Errados = pd.concat([Dataframe_Errados, SimpleDataframe[SimpleDataframe['ID'].str.contains(ids) == True]])
 
-    return SimpleDataframe
+    return Dataframe_Corretos, Dataframe_Errados
 
 
 
