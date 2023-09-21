@@ -35,23 +35,19 @@ def IDsTable_Connection(brand,marketplace):
 
 # Função pra limpar os marketplaces através do ID 
 def Cleaning_IDs(Dataframe,brand,marketplace):
-
     # Pegando o dataframe de exclusao
     IDsTable = IDsTable_Connection(brand,marketplace)
+
+    #Criando a lista com base na coluna ID
+    lista_ids = IDsTable['ID'].tolist()
 
     # Criando o dataframe com os ids 
     Dataframe['ID'] = Dataframe['ID'].str.lower().str.strip()
 
-    # Inicialize os DataFrames fora do loop
-    Dataframe_Corretos = pd.DataFrame()
-    Dataframe_Errados = pd.DataFrame()
+    # Criar um DataFrame com os IDs encontrados
+    Df_Ids_encontrados = Dataframe[Dataframe['ID'].isin(lista_ids)]
+    
+    # Criar um DataFrame com os IDs que não foram encontrados
+    Df_Ids_certos = Dataframe[~Dataframe['ID'].isin(lista_ids)]
 
-    for ids in IDsTable['ID']:
-        # Atualize os DataFrames cumulativamente
-        Dataframe_Corretos = pd.concat([Dataframe_Corretos, Dataframe[Dataframe['ID'].str.contains(ids) == False]])
-        Dataframe_Errados = pd.concat([Dataframe_Errados, Dataframe[Dataframe['ID'].str.contains(ids) == True]])
-
-    Dataframe_Errados['MOTIVO'] = "ID ENCONTRADO"
-    Dataframe_Errados['REF'] = Dataframe_Errados['ID']
-
-    return Dataframe_Corretos, Dataframe_Errados
+    return Df_Ids_certos, Df_Ids_encontrados
