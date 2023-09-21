@@ -39,32 +39,22 @@ def Cleaning_Links_API(Dataframe,brand,marketplace):
     # Pegando o dataframe de exclusao
     WordsTable = WordsTable_Connection(brand,marketplace)
 
+    #Criando a lista de palavras
+    lista_palavras = WordsTable['WORDS'].tolist()
+
     # Criando o dataframe com as urls e os títulos 
     Dataframe['TITLE'] = Dataframe['TITLE'].str.lower().str.strip()
 
-    # Inicialize os DataFrames fora do loop
-    Dataframe_Corretos = pd.DataFrame()
-    Dataframe_Errados = pd.DataFrame()
+    # Filtra as linhas em que a coluna 'TITLE' não contém nenhuma palavra da lista
+    df_limpo = Dataframe[~Dataframe['TITLE'].str.contains('|'.join(lista_palavras), case=False, na=False)]
+    df_removidos = Dataframe[Dataframe['TITLE'].str.contains('|'.join(lista_palavras), case=False, na=False)]
 
-    words_found = []
+    # Adiciona uma coluna 'PALAVRA_FILTRADA' ao df_removidos para mostrar a palavra responsável
+    df_removidos['REF'] = df_removidos.apply(lambda row: [p for p in lista_palavras if p.lower() in row['TITLE']], axis=1)
+    df_removidos['MOTIVO'] = 'PALAVRAS ENCONTRADAS'
 
-    for word in WordsTable['WORDS']:
-        # Criar uma série booleana para verificar se a palavra está contida em 'TITLE'
-        condition = Dataframe['TITLE'].str.contains(word)
+    return df_limpo, df_removidos
         
-        # Atualizar os DataFrames cumulativamente
-        Dataframe_Corretos_final = pd.concat([Dataframe_Corretos, Dataframe[~condition]])
-        Dataframe_Errados = pd.concat([Dataframe_Errados, Dataframe[condition]])
-
-        # Caso uma palavra esteja no DataFrame errado então armazenar a palavra com a quantidade de linhas que foram atualizadas cumulativamente
-        for i in range(Dataframe[condition].shape[0]):
-            words_found.append(word)
-
-
-    Dataframe_Errados['REF'] = words_found
-    Dataframe_Errados['MOTIVO'] = "PALAVRA ENCONTRADAS"
-
-    return Dataframe_Corretos_final, Dataframe_Errados
 
 
 # Função para limpar por título 

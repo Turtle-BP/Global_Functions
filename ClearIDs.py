@@ -46,6 +46,10 @@ def Cleaning_IDs(Dataframe,brand,marketplace):
 
     # Criar um DataFrame com os IDs encontrados
     Df_Ids_encontrados = Dataframe[Dataframe['ID'].isin(lista_ids)]
+    #Adicionando motivo 
+    Df_Ids_encontrados['MOTIVO'] = 'ID ENCONTRADO'
+    #Adicionando o ID na coluna REF
+    Df_Ids_encontrados['REF'] = Df_Ids_encontrados['ID']
     
     # Criar um DataFrame com os IDs que não foram encontrados
     Df_Ids_certos = Dataframe[~Dataframe['ID'].isin(lista_ids)]
