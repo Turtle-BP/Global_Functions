@@ -61,7 +61,8 @@ def Cleaning_Links_API(Dataframe,brand,marketplace):
             words_found.append(word)
 
 
-    Dataframe_Errados['WORDS_FOUND'] = words_found
+    Dataframe_Errados['REF'] = words_found
+    Dataframe_Errados['MOTIVO'] = "PALAVRA ENCONTRADAS"
 
     return Dataframe_Corretos_final, Dataframe_Errados
 

@@ -51,5 +51,7 @@ def Cleaning_IDs(Dataframe,brand,marketplace):
         Dataframe_Corretos = pd.concat([Dataframe_Corretos, Dataframe[Dataframe['ID'].str.contains(ids) == False]])
         Dataframe_Errados = pd.concat([Dataframe_Errados, Dataframe[Dataframe['ID'].str.contains(ids) == True]])
 
+    Dataframe_Errados['MOTIVO'] = "ID ENCONTRADO"
+    Dataframe_Errados['REF'] = Dataframe_Errados['ID']
 
     return Dataframe_Corretos, Dataframe_Errados
