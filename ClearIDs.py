@@ -48,8 +48,8 @@ def Cleaning_IDs(Dataframe,brand,marketplace):
 
     for ids in IDsTable['ID']:
         # Atualize os DataFrames cumulativamente
-        Dataframe_Corretos = Dataframe_Corretos.append(Dataframe[Dataframe['ID'].str.contains(ids) == False])
-        Dataframe_Errados = Dataframe_Errados.append(Dataframe[Dataframe['ID'].str.contains(ids) == True])
+        Dataframe_Corretos = pd.concat([Dataframe_Corretos, Dataframe[Dataframe['ID'].str.contains(ids) == False]])
+        Dataframe_Errados = pd.concat([Dataframe_Errados, Dataframe[Dataframe['ID'].str.contains(ids) == True]])
 
 
     return Dataframe_Corretos, Dataframe_Errados
