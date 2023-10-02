@@ -50,7 +50,7 @@ def Cleaning_Links_API(Dataframe,brand,marketplace):
     df_removidos = Dataframe[Dataframe['TITLE'].str.contains('|'.join(lista_palavras), case=False, na=False)]
 
     # Adiciona uma coluna 'PALAVRA_FILTRADA' ao df_removidos para mostrar a palavra responsável
-    df_removidos['REF'] = df_removidos.apply(lambda row: [p for p in lista_palavras if p.lower() in row['TITLE']], axis=1)
+    #df_removidos['REF'] = df_removidos.apply(lambda row: [p for p in lista_palavras if p.lower() in row['TITLE']], axis=1)
     df_removidos['MOTIVO'] = 'PALAVRAS ENCONTRADAS'
 
     return df_limpo, df_removidos
