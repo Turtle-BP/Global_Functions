@@ -27,6 +27,9 @@ def insert_data(database_name, collection, data_dict, brand):
     #Acessando a collection
     collection = db[collection]
 
+    #Criando index de IDs unicos
+    collection.create_index([("ID_OFERTA", pymongo.ASCENDING)], unique=True)
+
     #Inserindo o dict
     try:
         result = collection.insert_one(data_dict)
