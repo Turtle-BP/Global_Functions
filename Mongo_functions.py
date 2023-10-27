@@ -1,5 +1,6 @@
 #bibliotecas 
 import pymongo
+import traceback
 
 ##Endereço de IPS da marca
 GoPro_IP = '54.207.87.136'
@@ -33,7 +34,8 @@ def insert_data(database_name, collection, data_dict, brand):
     try:
         result = collection.insert_one(data_dict)
     except:
-        print("É duplicado | erro")
+        print("É duplicado | erro\n")
+        traceback.print_exc()
 
     #Fechando o client
     client.close()
