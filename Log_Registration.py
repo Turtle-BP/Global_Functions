@@ -37,3 +37,48 @@ def Log_registration(marketplace,tempo_corrido,brand,tag,urls_found,urls_collect
     connection.commit()
     connection.close()
     C.close()
+
+
+
+#! JSON DE TESTE
+# json = {
+#     "Marketplace" : [
+#         "ViaVarejo"
+#     ],
+#     "Brands" : [
+#         "GoPro"
+#     ],
+#     "User": "01",
+#     "Origem":"Teste",
+# }
+
+#Função para registro do Log de Triggers da DfProducts_All
+def LogTrigger_Registration(json):
+
+    #Fazendo a conexão com o banco de dados 
+    connection = pymysql.connect(host='serverturtle.csheuezawnml.sa-east-1.rds.amazonaws.com',
+                                user='admin',
+                                password='Sand316712',
+                                database='Logs',
+                                cursorclass=pymysql.cursors.DictCursor)
+
+    #Criando cursor 
+    C = connection.cursor()
+
+    #Pegando a data de hoje
+    json['Date'] = pd.to_datetime('today', errors='ignore').date()
+
+    #Inserindo os dados
+    SQL_Query = """INSERT INTO Triggers (MARKETPLACES, BRANDS, USER, DATE, ORIGEM) VALUES (%s,%s,%s,%s,%s)"""
+
+    #Executando
+    C.execute(SQL_Query,(json['Marketplace'],json['Brands'],json['User'],json['Date'],json['Origem']))
+
+    #Fazendo o commit
+    connection.commit()
+    connection.close()
+
+    #Fechando o cursor
+    C.close()
+
+    return "Log registrado com sucesso!"
