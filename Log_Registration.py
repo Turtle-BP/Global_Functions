@@ -71,10 +71,10 @@ def LogTrigger_Registration(json):
     marketplaces_str = ', '.join(json['Marketplace'])
 
     #Inserindo os dados
-    SQL_Query = """INSERT INTO Triggers (MARKETPLACES, BRANDS, USER, DATE, ORIGEM) VALUES (%s,%s,%s,%s,%s)"""
+    SQL_Query = """INSERT INTO Triggers (DATE, BRANDS, MARKETPLACE, USER, ORIGEM) VALUES (%s,%s,%s,%s,%s)"""
 
     #Executando
-    C.execute(SQL_Query,(marketplaces_str,json['Brands'],json['User'],json['Date'],json['Origem']))
+    C.execute(SQL_Query,(json['Date'],json['Brands'],marketplaces_str,json['User'],json['Origem']))
 
     #Fazendo o commit
     connection.commit()
