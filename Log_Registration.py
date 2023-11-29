@@ -76,6 +76,13 @@ def LogTrigger_Registration(json):
     #Executando
     C.execute(SQL_Query,(json['Date'],json['Brands'],marketplaces_str,json['User'],json['Origem']))
 
+    #Pegando o ID do registro
+    SQL_Query = """SELECT ID FROM Trigger_Process ORDER BY ID DESC LIMIT 1"""
+
+    #Salvando o ID para fazer o return depois 
+    C.execute(SQL_Query)
+    ID = C.fetchall()[0]['ID']
+    
     #Fazendo o commit
     connection.commit()
     connection.close()
@@ -83,4 +90,4 @@ def LogTrigger_Registration(json):
     #Fechando o cursor
     C.close()
 
-    return "Log registrado com sucesso!"
+    return ID
