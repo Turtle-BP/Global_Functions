@@ -77,10 +77,13 @@ def LogTrigger_Registration(json):
     C.execute(SQL_Query,(json['Date'],json['Brands'],marketplaces_str,json['User'],json['Origem']))
 
     #Pegando o ID do registro
-    SQL_Query = """SELECT idTrigger_Process FROM Trigger_Process ORDER BY idTrigger_Process ASC LIMIT 1"""
+    SQL_Query = """SELECT idTrigger_Process FROM Trigger_Process ORDER BY idTrigger_Process DESC LIMIT 1"""
 
     #Salvando o ID para fazer o return depois 
-    ID = C.execute(SQL_Query)    
+    C.execute(SQL_Query)    
+
+    #Pegando o ID
+    ID = C.fetchone()['idTrigger_Process']
     
     #Fazendo o commit
     connection.commit()
