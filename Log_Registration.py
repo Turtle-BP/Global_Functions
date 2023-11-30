@@ -93,3 +93,34 @@ def LogTrigger_Registration(json):
     C.close()
 
     return ID
+
+
+#Função para registro do Log de Link 
+def LogLink_Registration(json):
+    #Fazendo a conexão com o banco de dados 
+    connection = pymysql.connect(host='serverturtle.csheuezawnml.sa-east-1.rds.amazonaws.com',
+                                user='admin',
+                                password='Sand316712',
+                                database='Logs',
+                                cursorclass=pymysql.cursors.DictCursor)
+
+    #Criando cursor 
+    C = connection.cursor()
+
+    #Pegando a data de hoje
+    json['Date'] = pd.to_datetime('today', errors='ignore').date()
+
+    #Criando o query para colocar
+    SQL_Query = """INSERT INTO Trigger_Process (Trigger_ID, DATE, MARKETPLACE, BRAND, URL, ATUAL_STEP, STATUS) VALUES (%s,%s,%s,%s,%s,%s,%s)"""
+
+    #Salvando o ID para fazer o return depois 
+    C.execute(SQL_Query, (json['Trigger_ID'],json['Date'],json['Marketplace'],json['Marca'],json['URL'],json['Atual_Step'],json['Status'])) 
+
+    #Fazendo o commit
+    connection.commit()
+    connection.close()
+
+    #Fechando o cursor
+    C.close()
+
+    
