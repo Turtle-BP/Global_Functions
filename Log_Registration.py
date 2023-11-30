@@ -111,7 +111,7 @@ def LogLink_Registration(json):
     json['Date'] = pd.to_datetime('today', errors='ignore').date()
 
     #Criando o query para colocar
-    SQL_Query = """INSERT INTO Trigger_Process (Trigger_ID, DATE, MARKETPLACE, BRAND, URL, ATUAL_STEP, STATUS) VALUES (%s,%s,%s,%s,%s,%s,%s)"""
+    SQL_Query = """INSERT INTO Link_Process (Trigger_ID, DATE, MARKETPLACE, BRAND, URL, ATUAL_STEP, STATUS) VALUES (%s,%s,%s,%s,%s,%s,%s)"""
 
     #Salvando o ID para fazer o return depois 
     C.execute(SQL_Query, (json['Trigger_ID'],json['Date'],json['Marketplace'],json['Marca'],json['URL'],json['Atual_Step'],json['Status'])) 
