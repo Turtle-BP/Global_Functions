@@ -116,11 +116,24 @@ def LogLink_Registration(json):
     #Salvando o ID para fazer o return depois 
     C.execute(SQL_Query, (json['Trigger_ID'],json['Date'],json['Marketplace'],json['Marca'],json['URL'],json['Atual_Step'],json['Status'])) 
 
+    #Pegando o ID do registro
+    SQL_Query = """SELECT Process_ID FROM Link_Process WHERE URL = %s ORDER BY Process_ID DESC LIMIT 1"""
+
+    #Salvando o ID para fazer o return depois 
+    C.execute(SQL_Query)    
+
+    #Pegando o ID
+    ID = C.fetchone()['Process_ID']
+    
     #Fazendo o commit
     connection.commit()
     connection.close()
 
     #Fechando o cursor
     C.close()
+
+    return ID
+
+
 
     
