@@ -120,7 +120,7 @@ def LogLink_Registration(json):
     SQL_Query = """SELECT Process_ID FROM Link_Process WHERE URL = %s ORDER BY Process_ID DESC LIMIT 1"""
 
     #Salvando o ID para fazer o return depois 
-    C.execute(SQL_Query)    
+    C.execute(SQL_Query, (json['URL']))
 
     #Pegando o ID
     ID = C.fetchone()['Process_ID']
