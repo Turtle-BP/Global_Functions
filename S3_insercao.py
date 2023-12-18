@@ -69,7 +69,7 @@ def send_dataframe_s3_latest(marketplace, dataframe, brand, file_name):
         # Salve esse DataFrame no Amazon S3
         s3_client = boto3.client('s3')
         bucket_name = 'turtle-brand-protection'
-        s3_file_key = f'marketplace/{brand}/{file_name}'
+        s3_file_key = f'{marketplace}/{brand}/{file_name}'
 
         # Converta o DataFrame para um arquivo CSV
         file_csv = dataframe.to_csv(index=False)
