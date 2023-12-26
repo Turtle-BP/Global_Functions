@@ -6,7 +6,7 @@ import traceback
 GoPro_IP = '54.207.87.136'
 Wacom_IP = '52.67.113.63'
 Sample_IP = '18.228.141.40'
-Elsys_IP = '172.31.37.0'
+Elsys_IP = '54.232.230.18'
 
 #função para inserir dados no mongo
 def insert_data(database_name, collection, data_dict, brand):
