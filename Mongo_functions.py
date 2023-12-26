@@ -16,6 +16,8 @@ def insert_data(database_name, collection, data_dict, brand):
         IP = GoPro_IP
     elif brand == 'Wacom':
         IP = Wacom_IP
+    elif brand == 'Elsys':
+        IP = Elsys_IP
     elif brand == 'Sample':
         IP = Sample_IP
     elif brand == 'Athelica':
@@ -23,6 +25,8 @@ def insert_data(database_name, collection, data_dict, brand):
 
     #conectando ao mongo    
     client = pymongo.MongoClient(f"mongodb://mongodbadmin:admin@{IP}:27017/?authMechanism=DEFAULT")
+
+    print(brand,IP)
     
     #Acessando o database
     db = client[database_name]
