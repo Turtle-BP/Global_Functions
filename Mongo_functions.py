@@ -52,6 +52,8 @@ def get_all_items(database, collection_user, brand):
         IP = GoPro_IP
     elif brand == 'Wacom':
         IP = Wacom_IP
+    elif brand == 'Elsys':
+        IP = Elsys_IP
     elif brand == 'Sample':
         IP = Sample_IP
     elif brand == 'Athelica':
